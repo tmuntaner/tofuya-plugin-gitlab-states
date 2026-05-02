@@ -1,0 +1,7 @@
+package component:tofuya-plugin-gitlab-states;
+
+world example {
+    include tofuya:plugin/tofuya-world;
+
+    import tofuya:provider-gitlab/gitlab-terraform-api;
+}
