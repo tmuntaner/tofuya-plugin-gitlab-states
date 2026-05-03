@@ -1,5 +1,6 @@
 /target
 tofuya-plugin-gitlab-states.wasm
+wit/deps
 
 ### VisualStudioCode template
 .vscode/*

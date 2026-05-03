@@ -1,12 +1,13 @@
-use crate::bindings::exports::tofuya::plugin::core_state::Guest;
-use crate::bindings::tofuya::provider_gitlab::gitlab_terraform_api::{
-    ConnectionConfig, get_state_names,
-};
 use serde::{Deserialize, Serialize};
 use url::Url;
+use crate::exports::tofuya::plugin::core_state::Guest;
+use crate::tofuya::provider_gitlab::gitlab_terraform_api::{get_state_names, ConnectionConfig};
 
-#[allow(warnings)]
-mod bindings;
+wit_bindgen::generate!({
+    world: "example",
+    path: "wit",
+    generate_all,
+});
 
 struct Component;
 
@@ -45,4 +46,4 @@ impl Guest for Component {
     }
 }
 
-bindings::export!(Component with_types_in bindings);
+export!(Component);

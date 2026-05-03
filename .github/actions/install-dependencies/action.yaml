@@ -13,5 +13,4 @@ runs:
       run: |
         set -ex
         cargo binstall wkg
-        cargo binstall cargo-component
-        cargo binstall wasm-tools
+        cargo binstall wac-cli
