@@ -1,10 +1,7 @@
 pull:
-    mkdir -p wit/deps/tofuya-provider-gitlab
-    wkg oci pull ghcr.io/tmuntaner/tofuya-provider-gitlab:0.1.0 -o components/tofuya-provider-gitlab.wasm
-    wasm-tools component wit components/tofuya-provider-gitlab.wasm > wit/deps/tofuya-provider-gitlab/provider.wit
-    mkdir -p wit/deps/tofuya-plugin
-    wkg oci pull ghcr.io/tmuntaner/tofuya-plugin-interface:0.1.0 -o components/tofuya-plugin-interface.wasm
-    wasm-tools component wit components/tofuya-plugin-interface.wasm > wit/deps/tofuya-plugin/plugin.wit
+    mkdir -p components
+    wkg wit fetch --config ./wkg-config.toml
+    wkg get tofuya:provider-gitlab@0.1.0 -o components/tofuya-provider-gitlab.wasm --config ./wkg-config.toml --overwrite
 
 build:
     cargo build --target wasm32-wasip2 --release

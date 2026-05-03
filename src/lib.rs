@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use url::Url;
-use crate::exports::tofuya::plugin::core_state::Guest;
+use crate::exports::tofuya::plugin_interface::core_state::Guest;
 use crate::tofuya::provider_gitlab::gitlab_terraform_api::{get_state_names, ConnectionConfig};
 
 wit_bindgen::generate!({
