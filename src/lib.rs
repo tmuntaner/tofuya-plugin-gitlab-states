@@ -1,3 +1,5 @@
+use std::str::FromStr;
+use regex::Regex;
 use crate::exports::tofuya::plugin_interface::core_state::Guest;
 use crate::tofuya::provider_gitlab::gitlab_terraform_api::{ConnectionConfig, get_state_names};
 use serde::{Deserialize, Serialize};
@@ -14,6 +16,7 @@ struct Component;
 #[derive(Serialize, Deserialize, Default)]
 struct Config {
     gitlab_project: String,
+    regex_selector: Option<String>,
 }
 
 impl Guest for Component {
@@ -41,6 +44,17 @@ impl Guest for Component {
 
         let states = get_state_names(&connection_config, config.gitlab_project.as_str())
             .map_err(|e| format!("failed to get states from gitlab provider: {}", e))?;
+
+        if let Some(regex) = config.regex_selector {
+            let re = Regex::from_str(regex.as_str())
+                .map_err(|err| format!("failed to parse regex: {}", err))?;
+
+            let states: Vec<String> = states.into_iter()
+                .filter(|state| re.is_match(state))
+                .collect();
+
+            return Ok(states)
+        }
 
         Ok(states)
     }
